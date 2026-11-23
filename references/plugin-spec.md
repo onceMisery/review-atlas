@@ -35,7 +35,7 @@ Why three layers: `idea://` is frequently unregistered; `executeJavaScript` inje
 - Hook contract: if `window.awJumpQuery` is missing, do nothing (no `preventDefault`) so the anchor navigates and the request layer/server takes over; on bridge call failure fall back to `window.location.href = a.href`.
 - Request handler (`CefRequestHandlerAdapter.onBeforeBrowse`): cancel and jump on `idea://` and `<base>/jump?…`, log `intercept navigate:`. Note the CEF 2026.3 signatures: `onLoadError(CefBrowser, CefFrame, CefLoadHandler.ErrorCode, String, String)`, `JBCefClient.addRequestHandler(handler, cef)` / `removeRequestHandler(handler, cef)` (2 args), `browser.getCefBrowser()`, `browser.getJBCefClient()`.
 - DnD: drop `.html` onto the tab/root switches the served file. Toolbar: 打开 HTML / 重载 (cache-bust `&r=N`, enabled only when a file is resolvable) / **关闭** (resets to an empty Swing card and persists `closed=true`, so a restart stays closed until the next Open/drag) / 外部浏览器 (`BrowserUtil.browse(server.baseUrl())`).
-- Settings: `@State` project service persisting `htmlPath` + `closed`; default path `<project>/docs/review-atlas.html` with the newest-`docs/*.html` fallback above.
+- Settings: `@State` project service persisting `htmlPath` + `closed`; default is `docs/review-atlas.html` under the project root, with the newest-`docs/*.html` fallback above.
 
 ## plugin.xml essentials
 
@@ -58,7 +58,7 @@ Why three layers: `idea://` is frequently unregistered; `executeJavaScript` inje
 The IDE's graphical Install-from-Disk flow cannot be scripted, but the underlying effect can: a jar placed at `<config>/plugins/review-atlas-bridge.jar` is loaded on the next IDE start.
 
 - Config root: Windows `%APPDATA%/JetBrains`, macOS `~/Library/Application Support/JetBrains`, Linux `${XDG_CONFIG_HOME:-~/.config}/JetBrains`; target dir = newest `IntelliJIdea*` (override with `IDEA_CONFIG_DIR`).
-- `scripts/install_plugin.sh --check|--dry-run|--install --jar <jar>`: hash-compares built vs installed jar (`INSTALLED_CURRENT/OUTDATED`), backs up the previous jar, prints `TARGET`, `RUNNING`, `RESTART_REQUIRED` and the exact `UNINSTALL=rm …` command. No admin rights, no registry changes.
+- `scripts/install_plugin.sh --check|--dry-run|--install --jar dist/review-atlas-bridge.jar`: hash-compares built vs installed jar (`INSTALLED_CURRENT/OUTDATED`), backs up the previous jar, prints `TARGET`, `RUNNING`, `RESTART_REQUIRED` and the exact `UNINSTALL=rm …` command. No admin rights, no registry changes.
 - A jar copied while the IDE runs becomes active only after a restart — that restart is the single manual step; everything else (build, copy, upgrade detection, uninstall hint) is automated.
 - Policy: first use = install automatically; later uses = `--check` only, regenerate the HTML (the plugin re-reads it per request). Honor explicit user opt-outs by printing the manual fallback steps instead.
 

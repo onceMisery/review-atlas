@@ -2,11 +2,12 @@
 /**
  * Anchor audit for Review Atlas HTML files.
  *
- * Usage: node verify_anchors.cjs <atlas.html> [--root <project-root>]
+ * Usage: node verify_anchors.cjs docs/review-atlas.html --root .
+ *        (first argument: atlas HTML path; --root: target project root, default cwd)
  *
  * Parses prefix constants, the F{} file map and every L(F.key, "Class", "method", line[, "sig"])
  * call in the atlas, then verifies:
- *   1. the referenced file exists under <project-root>
+ *   1. the referenced file exists under the given project root
  *   2. the method token appears within ±3 lines of the claimed line
  * Mismatches with a non-empty sig are reported as WARN (intentional call-site anchors);
  * mismatches without sig and missing files are hard issues (exit code 1).
@@ -21,7 +22,7 @@ let root = process.cwd();
 const rootIdx = args.indexOf("--root");
 if (rootIdx > -1) root = args[rootIdx + 1];
 if (!htmlPath) {
-  console.log("usage: node verify_anchors.cjs <atlas.html> [--root <project-root>]");
+  console.log("usage: node verify_anchors.cjs docs/review-atlas.html --root .");
   process.exit(2);
 }
 

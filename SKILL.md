@@ -1,5 +1,6 @@
 ---
 name: build-review-atlas
+version: 1.0.0
 description: Turn a business flow in any codebase into a review-grade interactive HTML atlas (sequence left / code anchors right, plain-language notes, drill-down, theme, history, adjustable split) plus a thin IntelliJ plugin that renders it in an IDE tool window and jumps to the exact file:line on click. Use when asked to visualize or hand over a code flow for review, produce a 时序图 + 代码位置映射, make a business-process explainer bound to real code, or set up an in-IDE HTML review viewer with click-to-code. Also use for 大白话流程图、代码走读页、review 用交互页、IDEA 内嵌 review HTML.
 ---
 
@@ -59,8 +60,8 @@ Edit only the data blocks at the top of the script. Rules that keep it review-gr
 
 Run, in order:
 
-1. `node scripts/verify_anchors.cjs <atlas.html> --root <project-root>` — checks every `L()` anchor's file exists and the method name appears within ±3 lines of the claimed line. Fix flagged anchors (call-site anchors are legitimate when `sig` says `调用 :行`).
-2. Fragment contract validator (if `code-to-interactive-flow` skill exists): `node <skill>/scripts/validate_fragment.cjs <atlas.html>`.
+1. `node scripts/verify_anchors.cjs docs/review-atlas.html --root .` — run from the target project root; checks every `L()` anchor's file exists and the method name appears within ±3 lines of the claimed line. Fix flagged anchors (call-site anchors are legitimate when `sig` says `调用 :行`).
+2. Fragment contract validator (if `code-to-interactive-flow` skill exists): `node ~/.qoder/skills/code-to-interactive-flow/scripts/validate_fragment.cjs docs/review-atlas.html`.
 3. Browser click-through: every step, every drill (including nested), every theme, back/forward, splitter drag/reset/keyboard, copy feedback, zero `undefined/NaN/[object]`, no overlapping cells, no page-level horizontal scroll at narrow width, screenshot at least once.
 
 Report honestly what was verified and what wasn't (e.g., "narrow-width geometry pending because the preview panel was hidden").
@@ -70,7 +71,7 @@ Report honestly what was verified and what wasn't (e.g., "narrow-width geometry 
 Default policy (user opted in): **install the plugin automatically on first use, skip it later.**
 
 1. **First use** — copy `assets/idea-plugin/` into the target repo (e.g. `tools/review-atlas-plugin/`) and build once: `bash tools/review-atlas-plugin/build.sh` → `dist/review-atlas-bridge.jar`。构建脚本不写死安装路径：`IDEA_HOME` 优先，否则按 OS 常见位置（Program Files/JetBrains、Toolbox apps、/Applications、/opt）自动探测并按 `bin/build.txt` 时间取最新。Then (script paths below are relative to this skill directory):
-   - `bash scripts/install_plugin.sh --check --jar <repo>/tools/review-atlas-plugin/dist/review-atlas-bridge.jar`
+   - `bash scripts/install_plugin.sh --check --jar tools/review-atlas-plugin/dist/review-atlas-bridge.jar` (run from the target repo root)
    - If `STATUS=INSTALLED_CURRENT` → nothing to do. Otherwise `bash scripts/install_plugin.sh --install --jar …` (copies the jar into `<IDE config>/plugins/`, backs up any previous jar, no admin, reversible via the printed `UNINSTALL=` command).
    - **Always close the loop on the restart**: `RESTART_REQUIRED=yes` → tell the user **重启 IDEA 一次**（运行中放入的 jar 只能在下次启动生效；图形安装向导无法脚本化，这是唯一可靠的无 UI 路线）; `RESTART_REQUIRED=no` → also tell the user once that the jar loads on the **next IDE start**.
    - Then guide the one-time UI check: right dock "Review Atlas" → 若配置路径不存在，工具窗会自动打开 `docs` 下最新的 `.html`；也可用工具栏「打开 HTML」或直接拖入；点一个锚点验证跳转，再点「关闭」确认回到空态（重启后保持关闭，直到下次打开）。
