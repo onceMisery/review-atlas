@@ -1,0 +1,19 @@
+<idea-plugin>
+    <id>review.atlas.bridge</id>
+    <name>Review Atlas Bridge</name>
+    <vendor>review-atlas</vendor>
+    <description><![CDATA[
+        Thin shell for code-review atlases: renders a single-file HTML flow map in a JCEF tool window
+        and jumps to the exact file:line when a code anchor is clicked. The HTML is the only source of
+        truth and is re-read from disk on every request. Jump works through three independent layers:
+        JS bridge, CEF request intercept and a loopback /jump endpoint (external browsers included).
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <!-- 2026.3+ splits JCEF into its own module; the fragment adds it to the plugin class path when present. -->
+    <depends optional="true" config-file="atlas-jcef.xml">com.intellij.modules.jcef</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceImplementation="com.review.atlas.AtlasSettings"/>
+        <toolWindow id="Review Atlas" anchor="right" icon="/icons/reviewAtlas.svg"
+                    factoryClass="com.review.atlas.AtlasToolWindowFactory"/>
+    </extensions>
+</idea-plugin>

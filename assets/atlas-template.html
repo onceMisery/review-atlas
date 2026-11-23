@@ -1,0 +1,883 @@
+<div id="aw-root" lang="zh-CN" data-aw-jump-base="http://aw-jump-base.local">
+<style>
+  #aw-root {
+    /* Neutral graphite + warm paper fallbacks; hosts can override every token. */
+    --aw-l-fg: #1c1b18; --aw-d-fg: #dfe1e6;
+    --aw-l-muted: #6b6a63; --aw-d-muted: #9da1a9;
+    --aw-l-bstd: #d8d5cc; --aw-d-bstd: #3d3f45;
+    --aw-l-bml: #e6e3da; --aw-d-bml: #33353a;
+    --aw-l-card: #fdfcf9; --aw-d-card: #2b2d30;
+    --aw-l-inset: #efeee8; --aw-d-inset: #26282c;
+    --aw-l-f2: #e7e5dd; --aw-d-f2: #34363b;
+    --aw-l-pri: #1f3a5f; --aw-d-pri: #a8bfd9;
+    --aw-l-onpri: #fdfcf9; --aw-d-onpri: #1b1c1f;
+    --aw-l-page: #f6f5f1; --aw-d-page: #1e1f22;
+    --aw-l-call: #0f6b71; --aw-d-call: #7fc4cd;
+    --aw-l-cb: #8d2f5f; --aw-d-cb: #d59cc4;
+    --aw-l-db: #2f6b3a; --aw-d-db: #8bc79a;
+    --aw-l-gate: #9a5b12; --aw-d-gate: #d9ab6a;
+    --aw-l-fail: #a3302c; --aw-d-fail: #e08b86;
+    --aw-fg: var(--aw-l-fg); --aw-muted: var(--aw-l-muted);
+    --aw-bstd: var(--aw-l-bstd); --aw-bml: var(--aw-l-bml);
+    --aw-card: var(--aw-l-card); --aw-inset: var(--aw-l-inset);
+    --aw-f2: var(--aw-l-f2); --aw-pri: var(--aw-l-pri); --aw-onpri: var(--aw-l-onpri);
+    --aw-page: var(--aw-l-page);
+    --aw-call: var(--aw-l-call); --aw-cb: var(--aw-l-cb); --aw-db: var(--aw-l-db);
+    --aw-gate: var(--aw-l-gate); --aw-fail: var(--aw-l-fail);
+    --fg: var(--seed-fg, var(--aw-fg)); --muted: var(--seed-muted, var(--aw-muted));
+    --bstd: var(--border-standard, var(--aw-bstd)); --bml: var(--border-subtle, var(--aw-bml));
+    --card: var(--card-bg, var(--aw-card)); --inset: var(--inset-bg, var(--aw-inset));
+    --f2: var(--fill-2, var(--aw-f2));
+    --pri: var(--seed-primary, var(--aw-pri)); --onpri: var(--on-primary, var(--aw-onpri));
+    --page: var(--card-bg, var(--aw-page));
+    --s1: var(--viz-series-1, var(--aw-cb)); --s2: var(--viz-series-2, var(--aw-db));
+    --s3: var(--viz-series-3, var(--aw-gate)); --s4: var(--viz-series-4, var(--aw-fail));
+    --s6: var(--viz-series-6, var(--aw-call));
+    font-family: var(--font-sans, "Segoe UI", "Microsoft YaHei", sans-serif);
+    background: var(--page); color: var(--fg); color-scheme: light;
+    padding: 16px 18px 18px; border-radius: 10px;
+    font-size: 13px; line-height: 1.55; transition: background-color .2s, color .2s;
+
+    &[data-theme="auto"] {
+      @media (prefers-color-scheme: dark) {
+        --aw-fg: var(--aw-d-fg); --aw-muted: var(--aw-d-muted);
+        --aw-bstd: var(--aw-d-bstd); --aw-bml: var(--aw-d-bml);
+        --aw-card: var(--aw-d-card); --aw-inset: var(--aw-d-inset);
+        --aw-f2: var(--aw-d-f2); --aw-pri: var(--aw-d-pri); --aw-onpri: var(--aw-d-onpri);
+        --aw-page: var(--aw-d-page);
+        --aw-call: var(--aw-d-call); --aw-cb: var(--aw-d-cb); --aw-db: var(--aw-d-db);
+        --aw-gate: var(--aw-d-gate); --aw-fail: var(--aw-d-fail);
+        color-scheme: dark;
+      }
+      @supports (color: light-dark(#000, #fff)) {
+        --aw-fg: light-dark(var(--aw-l-fg), var(--aw-d-fg));
+        --aw-muted: light-dark(var(--aw-l-muted), var(--aw-d-muted));
+        --aw-bstd: light-dark(var(--aw-l-bstd), var(--aw-d-bstd));
+        --aw-bml: light-dark(var(--aw-l-bml), var(--aw-d-bml));
+        --aw-card: light-dark(var(--aw-l-card), var(--aw-d-card));
+        --aw-inset: light-dark(var(--aw-l-inset), var(--aw-d-inset));
+        --aw-f2: light-dark(var(--aw-l-f2), var(--aw-d-f2));
+        --aw-pri: light-dark(var(--aw-l-pri), var(--aw-d-pri));
+        --aw-onpri: light-dark(var(--aw-l-onpri), var(--aw-d-onpri));
+        --aw-page: light-dark(var(--aw-l-page), var(--aw-d-page));
+        --aw-call: light-dark(var(--aw-l-call), var(--aw-d-call));
+        --aw-cb: light-dark(var(--aw-l-cb), var(--aw-d-cb));
+        --aw-db: light-dark(var(--aw-l-db), var(--aw-d-db));
+        --aw-gate: light-dark(var(--aw-l-gate), var(--aw-d-gate));
+        --aw-fail: light-dark(var(--aw-l-fail), var(--aw-d-fail));
+      }
+    }
+    &[data-theme="dark"] {
+      --aw-fg: var(--aw-d-fg); --aw-muted: var(--aw-d-muted);
+      --aw-bstd: var(--aw-d-bstd); --aw-bml: var(--aw-d-bml);
+      --aw-card: var(--aw-d-card); --aw-inset: var(--aw-d-inset);
+      --aw-f2: var(--aw-d-f2); --aw-pri: var(--aw-d-pri); --aw-onpri: var(--aw-d-onpri);
+      --aw-page: var(--aw-d-page);
+      --aw-call: var(--aw-d-call); --aw-cb: var(--aw-d-cb); --aw-db: var(--aw-d-db);
+      --aw-gate: var(--aw-d-gate); --aw-fail: var(--aw-d-fail);
+      --fg: var(--aw-fg); --muted: var(--aw-muted); --bstd: var(--aw-bstd); --bml: var(--aw-bml);
+      --card: var(--aw-card); --inset: var(--aw-inset); --f2: var(--aw-f2);
+      --pri: var(--aw-pri); --onpri: var(--aw-onpri); --page: var(--aw-page);
+      --s1: var(--aw-cb); --s2: var(--aw-db); --s3: var(--aw-gate); --s4: var(--aw-fail); --s6: var(--aw-call);
+      color-scheme: dark;
+    }
+    &[data-theme="light"] {
+      --fg: var(--aw-fg); --muted: var(--aw-muted); --bstd: var(--aw-bstd); --bml: var(--aw-bml);
+      --card: var(--aw-card); --inset: var(--aw-inset); --f2: var(--aw-f2);
+      --pri: var(--aw-pri); --onpri: var(--aw-onpri); --page: var(--aw-page);
+      --s1: var(--aw-cb); --s2: var(--aw-db); --s3: var(--aw-gate); --s4: var(--aw-fail); --s6: var(--aw-call);
+      color-scheme: light;
+    }
+
+    & *, & *::before, & *::after { box-sizing: border-box; }
+    & .aw-kicker { font-family: var(--font-code, ui-monospace, Consolas, monospace); font-size: 11px;
+      letter-spacing: .18em; color: var(--muted); margin: 0 0 3px; text-transform: uppercase; }
+    & .aw-h1 { font-family: Georgia, "Songti SC", SimSun, serif; font-size: 17px; font-weight: 500;
+      margin-block: 0 2px; letter-spacing: .015em; }
+    & .aw-rule { block-size: 2px; border-radius: 1px; margin-block: 7px 9px;
+      background: linear-gradient(90deg, var(--pri), var(--s6) 30%, var(--s2) 58%, var(--s3) 82%, var(--s4));
+      background-size: 220% 100%; animation: aw-flow 9s linear infinite, aw-rise .3s ease-out .06s both; }
+    & .aw-sub { font-size: 12px; color: var(--muted); margin-block: 0 10px; }
+    & .aw-controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-block-end: 8px;
+      & > span.aw-clabel { font-size: 12px; color: var(--muted); margin-inline-end: 2px; }
+      & [aria-pressed="true"] { background: var(--f2); border-color: var(--pri); font-weight: 500; }
+    }
+    & .aw-cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0; align-items: start; animation: aw-rise .34s ease-out .16s both; }
+    & .aw-cols > * { min-width: 0; }
+    & .aw-split { display: none; }
+    @media (min-width: 1080px) {
+      & .aw-cols { grid-template-columns: minmax(0, 1fr) 12px minmax(300px, var(--aw-dw, 430px)); }
+      & .aw-split {
+        display: grid; place-items: center; align-self: stretch; min-block-size: 120px;
+        font: inherit; cursor: col-resize; background: transparent; border: 0; border-radius: 6px;
+        color: var(--muted); padding: 0; touch-action: none;
+        &::before { content: ""; inline-size: 4px; block-size: 44px; border-radius: 2px;
+          background: var(--bstd); transition: background .12s, block-size .12s; }
+        &:hover::before, &:focus-visible::before { background: var(--pri); block-size: 64px; }
+        &[data-active]::before { background: var(--pri); block-size: 80px; }
+      }
+    }
+    & .aw-nav { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-block-end: 8px; }
+    & .aw-crumb {
+      font: inherit; font-size: 12px; cursor: pointer; background: var(--card); color: var(--fg);
+      border: 1px solid var(--bstd); border-radius: 4px; padding: 3px 11px; min-block-size: 24px;
+      transition: border-color .12s, background-color .18s, color .18s;
+      &:hover { border-color: var(--pri); color: var(--pri); }
+      &[aria-current="true"] { background: var(--f2); border-color: var(--pri); font-weight: 500; }
+      &[aria-disabled="true"] { opacity: .45; cursor: default; }
+    }
+    & .aw-navsep { color: var(--muted); font-size: 12px; }
+    & .aw-scroll { overflow-x: auto; padding-block-end: 4px; scrollbar-color: var(--muted) transparent; scrollbar-width: thin; }
+    & .aw-grid { min-width: 700px; }
+    & .aw-head, & .aw-row { display: grid; gap: 4px; }
+    & .aw-head { margin-block-end: 8px; padding-block-end: 8px; border-block-end: 1px solid var(--bstd); }
+    & .aw-lane {
+      font-size: 12px; font-weight: 500; text-align: center; padding: 4px 3px; border-radius: 8px;
+      background: var(--inset); border: 1px solid var(--bml);
+      animation: aw-pop .26s ease-out both; animation-delay: calc(var(--i) * 40ms);
+      & small { display: block; font-weight: 400; font-size: 11px; color: var(--muted); }
+      & i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-inline-end: 4px; vertical-align: middle; }
+    }
+    & .aw-body { list-style: none; margin: 0; padding: 0; }
+    & .aw-hit {
+      --kc: var(--muted); --kf: 5%;
+      font: inherit; color: inherit; text-align: left; cursor: pointer; background: var(--card);
+      border: 1px solid var(--bstd); border-left: 3px solid var(--kc); border-radius: 6px;
+      padding: 6px 9px; margin-block: 3px; width: 100%; min-block-size: 24px;
+      box-shadow: 0 1px 2px rgb(10 12 16 / .05);
+      transition: box-shadow .12s, border-color .12s, background-color .18s;
+      animation: aw-pop .3s ease-out both; animation-delay: calc(var(--i) * 35ms);
+      &:hover { border-color: var(--kc); box-shadow: 0 3px 10px rgb(10 12 16 / .12); }
+      &[aria-current="step"] { border-color: var(--kc); animation: aw-pop .3s ease-out both, aw-ring .9s ease-out .2s; }
+      & b { font-weight: 500; }
+      & span { display: block; color: var(--muted); font-size: 11.5px; }
+      & .aw-num { display: inline; color: var(--kc); font-weight: 500; }
+      &.k-call { --kc: var(--s6); }
+      &.k-cb { --kc: var(--s1); }
+      &.k-db { --kc: var(--s2); }
+      &.k-gate { --kc: var(--s3); }
+      &.k-fail { --kc: var(--s4); }
+      &.aw-self { border-left-style: dashed; }
+      &[data-imp="3"] { --kf: 13%; border-color: color-mix(in srgb, var(--kc) 55%, var(--bstd)); border-left-width: 4px; font-weight: 500; }
+      &[data-imp="2"] { --kf: 8%; border-color: color-mix(in srgb, var(--kc) 38%, var(--bstd)); }
+      &[data-imp="1"] { --kf: 4%; }
+      @supports (color: color-mix(in srgb, red, blue)) {
+        background: color-mix(in srgb, var(--kc) var(--kf), var(--card));
+        &:hover { background: color-mix(in srgb, var(--kc) calc(var(--kf) + 4%), var(--card)); }
+        &[aria-current="step"] { background: color-mix(in srgb, var(--kc) calc(var(--kf) + 7%), var(--card)); }
+      }
+    }
+    & .aw-drill { font-size: 11px; color: var(--pri); border: 1px solid var(--pri); border-radius: 4px;
+      padding-inline: 6px; margin-inline-start: 6px; white-space: nowrap; animation: aw-blink 2.8s ease-in-out infinite; }
+    & .aw-legend {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-block-start: 10px; font-size: 11.5px; color: var(--muted);
+      & i { display: inline-block; width: 12px; border-top: 2px solid var(--muted); margin-inline-end: 4px; vertical-align: middle; }
+    }
+    & .aw-detail {
+      background: var(--card); border: 1px solid var(--bstd); border-radius: 10px; padding: 12px 13px;
+      box-shadow: 0 2px 12px rgb(10 12 16 / .07); transition: background-color .18s;
+      @media (min-width: 1080px) { position: sticky; top: 8px; max-block-size: calc(100vh - 24px); overflow-y: auto;
+        scrollbar-color: var(--muted) transparent; scrollbar-width: thin; }
+    }
+    & .aw-dtitle { font-size: 13.5px; font-weight: 500; margin-block: 0 2px; }
+    & .aw-backlist { display: none; margin-block-end: 6px; }
+    @media (max-width: 1079px) { & .aw-backlist { display: inline-block; } }
+    & .aw-ddir { font-size: 12px; color: var(--muted); margin-block: 0 8px; }
+    & .aw-chain {
+      display: flex; align-items: center; gap: 4px; overflow-x: auto; padding-block: 2px 8px; margin-block-end: 8px;
+      border-block-end: 1px dashed var(--bstd); scrollbar-color: var(--muted) transparent; scrollbar-width: thin;
+      & button {
+        font: inherit; font-size: 11.5px; cursor: pointer; white-space: nowrap;
+        font-family: var(--font-code, ui-monospace, Consolas, monospace);
+        background: var(--inset); color: var(--fg); border: 1px solid var(--bml); border-radius: 4px; padding: 2px 9px;
+        animation: aw-pop .24s ease-out both; animation-delay: calc(var(--i) * 45ms);
+        &:hover { border-color: var(--pri); color: var(--pri); }
+      }
+      & i { color: var(--muted); font-style: normal; font-size: 11px; }
+    }
+    & .aw-sec {
+      --sc: var(--muted);
+      margin-block: 0 8px; padding: 7px 9px; border-radius: 8px; border: 1px solid var(--bml);
+      border-inline-start: 3px solid color-mix(in srgb, var(--sc) 60%, var(--bml));
+      background: var(--inset);
+      & dt { font-size: 11.5px; color: var(--sc); font-weight: 500; margin-block-end: 2px; letter-spacing: .04em;
+        display: flex; align-items: center; gap: 6px;
+        &::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--sc); flex: none; } }
+      & dd { margin: 0; font-size: 12.5px; color: var(--fg); }
+      &[data-kind="plain"] { --sc: var(--s1); }
+      &[data-kind="trigger"] { --sc: var(--s6); }
+      &[data-kind="gate"] { --sc: var(--s3); }
+      &[data-kind="state"] { --sc: var(--s2); }
+      &[data-kind="fail"] { --sc: var(--s4); }
+      @supports (backdrop-filter: blur(2px)) { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      @supports (color: color-mix(in srgb, red, blue)) {
+        background: color-mix(in srgb, var(--sc) 6%, var(--card));
+        box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 14%, transparent);
+      }
+    }
+    & .aw-sec em.aw-q { font-style: normal; color: var(--sc); font-weight: 500; }
+    & .aw-sec b.aw-b { font-weight: 500; color: var(--sc); }
+    & .aw-mcard {
+      background: var(--card); border: 1px solid var(--bstd); border-radius: 8px; padding: 8px 9px; margin-block-end: 8px;
+      transition: border-color .12s, box-shadow .12s, background-color .18s;
+      animation: aw-pop .26s ease-out both; animation-delay: calc(var(--i) * 50ms);
+      &[data-flash] { border-color: var(--pri); box-shadow: 0 0 0 2px var(--f2); }
+    }
+    & .aw-mhead { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; margin-block-end: 4px; }
+    & .aw-badge {
+      inline-size: 20px; block-size: 20px; border-radius: 4px; background: var(--pri); color: var(--onpri);
+      display: grid; place-items: center; font-size: 11px; font-weight: 500; flex: none;
+    }
+    & .aw-mname { font-family: var(--font-code, ui-monospace, Consolas, monospace); font-size: 12px; font-weight: 500; word-break: break-all; }
+    & .aw-line { font-family: var(--font-code, ui-monospace, Consolas, monospace); font-size: 11px; color: var(--muted);
+      background: var(--inset); border: 1px solid var(--bml); border-radius: 4px; padding: 0 7px; }
+    & .aw-mnote {
+      margin: 0 0 5px; padding: 6px 9px; font-size: 12.5px; color: var(--fg);
+      border-radius: 6px; border: 1px solid var(--bml);
+      border-inline-start: 3px solid color-mix(in srgb, var(--pri) 50%, var(--bml));
+      background: var(--inset);
+      @supports (backdrop-filter: blur(2px)) { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+      @supports (color: color-mix(in srgb, red, blue)) {
+        background: color-mix(in srgb, var(--pri) 8%, var(--card));
+        box-shadow: inset 0 1px 0 color-mix(in srgb, #fff 18%, transparent), 0 1px 6px rgb(10 12 16 / .08);
+      }
+    }
+    & .aw-msig { margin: 0 0 3px; font-size: 11.5px; color: var(--muted); }
+    & .aw-locrow {
+      display: grid; grid-template-columns: 52px 1fr; gap: 2px 8px; font-size: 11.5px; margin-block-end: 2px;
+      & dt { color: var(--muted); }
+      & dd { margin: 0; word-break: break-all; }
+    }
+    & .mono { font-family: var(--font-code, ui-monospace, Consolas, monospace); font-size: 11.5px; word-break: break-all; }
+    & .aw-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-block-start: 6px; align-items: center; }
+    & .aw-btn {
+      font: inherit; font-size: 12px; cursor: pointer; background: var(--card); color: var(--fg);
+      border: 1px solid var(--bstd); border-radius: 4px; padding: 3px 12px; text-decoration: none;
+      display: inline-block; min-block-size: 24px; transition: border-color .12s, color .12s, background-color .18s;
+      &:hover { border-color: var(--pri); color: var(--pri); }
+      &[data-copied] { border-color: var(--s2); color: var(--s2); }
+      &[data-failed] { border-color: var(--s4); color: var(--s4); }
+    }
+    & .aw-btn-pri {
+      background: var(--pri); border-color: var(--pri); color: var(--onpri);
+      &:hover { color: var(--onpri); opacity: .92; }
+    }
+    & .aw-copy { display: inline-flex; align-items: center; gap: 6px; }
+    & .aw-tip {
+      font-size: 11.5px; color: var(--s2); opacity: 0; transition: opacity .15s;
+      &[data-failed] { color: var(--s4); }
+      &[data-show] { opacity: 1; }
+    }
+    & .aw-map {
+      margin-block-start: 8px;
+      & summary { font-size: 12px; color: var(--muted); cursor: pointer; }
+      & pre {
+        background: var(--inset); border: 1px solid var(--bml); border-radius: 8px; padding: 8px;
+        font-size: 11px; overflow-x: auto; margin-block: 6px 0; white-space: pre-wrap; word-break: break-all;
+        scrollbar-color: var(--muted) transparent; scrollbar-width: thin;
+      }
+    }
+    & .aw-note { font-size: 11.5px; color: var(--muted); margin-block-start: 6px; }
+    & .aw-state {
+      margin-block-start: 14px; border: 1px solid var(--bstd); border-radius: 10px; background: var(--card);
+      box-shadow: 0 2px 12px rgb(10 12 16 / .07); animation: aw-rise .34s ease-out .22s both;
+      & summary { font-size: 12.5px; font-weight: 500; cursor: pointer; padding: 9px 13px; }
+      &[open] .aw-statebody { animation: aw-pop .28s ease-out both; }
+    }
+    & .aw-statebody { padding: 0 13px 12px; overflow-x: auto; color: var(--fg); scrollbar-color: var(--muted) transparent; scrollbar-width: thin; }
+    & table.aw-t {
+      border-collapse: collapse; width: 100%; min-width: 560px; font-size: 12px; color: var(--fg);
+      & th, & td { border: 1px solid var(--bml); padding: 5px 9px; text-align: left; vertical-align: top; color: var(--fg); }
+      & th { background: var(--f2); font-weight: 500; white-space: nowrap; }
+      & tbody tr:nth-child(even) { background: var(--inset); }
+    }
+    & .aw-sr-only:where(:not(:focus-within, :active)) {
+      position: absolute !important; clip-path: inset(50%) !important; overflow: hidden !important;
+      width: 1px !important; height: 1px !important; margin: -1px !important; padding: 0 !important;
+      border: 0 !important; white-space: nowrap !important;
+    }
+    & :where(button, a, summary):focus-visible { outline: 2px solid var(--pri); outline-offset: 2px; }
+    & .aw-kicker { animation: aw-rise .3s ease-out both; }
+    & .aw-h1 { animation: aw-rise .3s ease-out .03s both; }
+    & .aw-sub { animation: aw-rise .3s ease-out .09s both; }
+    & .aw-controls { animation: aw-rise .3s ease-out .12s both; }
+    @keyframes aw-rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes aw-pop { from { opacity: 0; transform: translateY(5px) scale(.985); } to { opacity: 1; transform: none; } }
+    @keyframes aw-ring {
+      0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--kc) 45%, transparent); }
+      100% { box-shadow: 0 0 0 7px transparent; }
+    }
+    @keyframes aw-flow { from { background-position: 0% 0; } to { background-position: 220% 0; } }
+    @keyframes aw-blink { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      & .aw-kicker, & .aw-h1, & .aw-rule, & .aw-sub, & .aw-controls, & .aw-cols, & .aw-state,
+      & .aw-lane, & .aw-hit, & .aw-mcard, & .aw-chain button { animation: none; }
+      & .aw-drill { animation: none; }
+      & .aw-hit, & .aw-crumb, & .aw-btn, & .aw-tip { transition: none; }
+    }
+    @supports not (scrollbar-color: auto) {
+      & .aw-scroll, & .aw-statebody, & .aw-chain, & .aw-detail, & .aw-map pre {
+        scrollbar-width: auto;
+        &::-webkit-scrollbar { width: 10px; height: 10px; }
+        &::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 5px; border: 2px solid var(--card); }
+        &::-webkit-scrollbar-thumb:hover { background: var(--pri); }
+        &::-webkit-scrollbar-track { background: transparent; }
+      }
+    }
+  }
+</style>
+
+<p class="aw-kicker">DEMO FLOW · REVIEW ATLAS TEMPLATE</p>
+<h2 class="aw-h1">示例：订单支付 → 结算入账（替换为你的业务流程）</h2>
+<div class="aw-rule" aria-hidden="true"></div>
+<p class="aw-sub">左侧按时序点选环节（↑↓ 移动焦点），右侧按调用顺序列出每个方法的大白话注释与代码位置；带「下钻」标记的环节可点击进入子流程。
+中间竖条可左右拖动调整右栏宽度（双击复位，聚焦后 ←→ 微调）。所有行号需按当前工作区逐条核对（scripts/verify_anchors.cjs）。</p>
+<div class="aw-controls" role="group" aria-label="主题与历史导航">
+  <span class="aw-clabel">主题</span>
+  <button type="button" class="aw-crumb" data-theme-val="auto">跟随系统</button>
+  <button type="button" class="aw-crumb" data-theme-val="light">浅色</button>
+  <button type="button" class="aw-crumb" data-theme-val="dark">深色</button>
+  <span class="aw-navsep">｜</span>
+  <span id="aw-hist" style="display:inline-flex;gap:6px;align-items:center"></span>
+</div>
+
+<div class="aw-cols">
+  <div>
+    <nav class="aw-nav" id="aw-nav" aria-label="流程视图导航"></nav>
+    <div class="aw-scroll"><div class="aw-grid">
+      <div class="aw-head" id="aw-head"></div>
+      <ol class="aw-body" id="aw-body" role="list"></ol>
+    </div></div>
+    <div class="aw-legend">
+      <span><i style="border-top-color:var(--s6)"></i>外部触发 / 跨服务调用</span>
+      <span><i style="border-top-color:var(--s1)"></i>消息 / 结果回调</span>
+      <span><i style="border-top-color:var(--s2)"></i>落库 / 状态变化</span>
+      <span><i style="border-top-color:var(--s3)"></i>判断 / 闸门</span>
+      <span><i style="border-top-color:var(--s4)"></i>失败 / 异常分支</span>
+      <span><i style="border-top-style:dashed"></i>对象内部动作</span>
+      <span style="color:var(--fg)">｜重要性</span>
+      <span><i style="border-top-color:var(--s2);border-top-width:4px"></i>粗深=核心动作</span>
+      <span><i style="border-top-color:var(--s3)"></i>中=判断闸门</span>
+      <span><i style="opacity:.45"></i>浅=入口/分支</span>
+    </div>
+  </div>
+  <button type="button" class="aw-split" id="aw-split" role="separator" aria-orientation="vertical"
+    aria-valuemin="300" aria-valuemax="900" aria-valuenow="430"
+    aria-label="拖动调整右栏宽度，左右方向键微调，双击复位"></button>
+  <aside class="aw-detail" id="aw-detail" aria-label="环节说明与代码位置"></aside>
+</div>
+
+<details class="aw-state">
+  <summary>附：状态机速查（把示例替换为你的任务/单据状态迁移）</summary>
+  <div class="aw-statebody">
+    <table class="aw-t">
+      <caption class="aw-sr-only">状态迁移速查表</caption>
+      <thead><tr><th scope="col">状态变化</th><th scope="col">触发条件</th><th scope="col">代码 / SQL 位置</th></tr></thead>
+      <tbody id="aw-statetable"></tbody>
+    </table>
+    <p class="aw-note">终态、失败预算、重试退避的口径必须在表格里写明（谁写终态值、预算在哪个 SQL 计入）。</p>
+  </div>
+</details>
+<span id="aw-announcer" role="status" class="aw-sr-only"></span>
+
+<script>
+(function () {
+  "use strict";
+  var R = document.getElementById("aw-root");
+  /* 可见错误横幅：展示同源脚本异常（带文件名/行号）。
+     跨源/注入脚本异常只报 "Script error. @:0"，无可定位信息，仅写控制台不打扰页面。 */
+  var awErrBox = null;
+  window.addEventListener("error", function (ev) {
+    if (!ev.filename) {
+      try { console.warn("[Review Atlas] opaque cross-origin error ignored:", ev.message); } catch (ignore) {}
+      return;
+    }
+    try {
+      if (!awErrBox) {
+        awErrBox = document.createElement("div");
+        awErrBox.style.cssText = "background:#7f1d1d;color:#fff;padding:6px 10px;border-radius:6px;"
+          + "margin:0 0 8px;font:12px/1.5 ui-monospace,Consolas,monospace;white-space:pre-wrap";
+        R.insertBefore(awErrBox, R.firstChild);
+      }
+      awErrBox.textContent += "[JS] " + ev.message + " @" + (ev.filename || "").split("/").pop() + ":" + ev.lineno + "\n";
+    } catch (ignore) {}
+  });
+
+  /* 插件本地服务会把 data-aw-jump-base 替换为真实基址；独立打开时保持哨兵值并回退 idea://。 */
+  var JUMP_BASE = R.getAttribute("data-aw-jump-base");
+  if (JUMP_BASE === "http://" + "aw-jump-base.local") JUMP_BASE = null;
+  /* 项目根路径：IDEA 跳转映射使用。 */
+  var ROOT = "C:/path/to/your-project";
+  var SRC = "src/main/java/demo/";
+  function L(file, cls, method, line, sig, note) {
+    return { file: file, cls: cls, method: method, line: line, sig: sig || "", note: note || "" };
+  }
+  var F = {
+    scanCtrl: SRC + "payment/PaymentScanController.java",
+    scanSvc: SRC + "payment/PaymentScanService.java",
+    settleSvc: SRC + "settle/SettlementService.java",
+    ledgerSvc: SRC + "ledger/LedgerService.java",
+    ledgerRepo: SRC + "ledger/LedgerRepository.java",
+    taskMapper: "src/main/resources/mapper/SettlementTaskMapper.xml"
+  };
+
+  var LANES = {
+    job: { n: "调度任务", g: "外部定时 HTTP", c: "var(--muted)" },
+    api: { n: "接口层", g: "Controller", c: "var(--s6)" },
+    svc: { n: "领域服务", g: "SettlementService", c: "var(--s1)" },
+    db: { n: "持久层", g: "t_settlement_task", c: "var(--s2)" },
+    ledger: { n: "记账服务", g: "LedgerService", c: "var(--s3)" },
+    cb: { n: "支付回调", g: "PaymentGateway", c: "var(--s3)" }
+  };
+
+  var VIEWS = {
+    main: {
+      title: "主链路：扫描 → 抢占 → 结算",
+      lanes: [LANES.job, LANES.api, LANES.svc, LANES.db, LANES.ledger],
+      events: [
+        { f: 0, t: 1, k: "call", imp: 1, h: "定时触发结算扫描", ep: "POST /settlement/scan",
+          plain: "外部调度每隔一段时间喊一次『把到期的结算任务跑一遍』，服务端没有内部定时器，节奏完全由外部决定。",
+          trigger: "调度器定时调用；机构号来自认证上下文。",
+          gate: "无业务闸门，直接进入扫描服务，默认最多翻若干页。",
+          state: "只读入口，不改数据。",
+          fail: "单条任务失败不中断整页扫描。",
+          loc: L(F.scanCtrl, "PaymentScanController", "scan", 42, "POST /settlement/scan", "接待窗口：从上下文取机构号交给扫描服务，自己不看业务数据。") },
+        { f: 2, t: 3, k: "db", imp: 2, h: "翻页捞到期任务", ep: "selectDue · 每页 N 条",
+          plain: "按『到期可执行』资格一页页捞任务：待处理/等待、失败但预算没用完、执行中超时没动静的，资格规则只有一份 SQL。",
+          trigger: "扫描循环驱动，按 (next_execute_time, id) 键集游标翻页。",
+          gate: "资格片段：状态命中 + next_execute_time 已到期。",
+          state: "只读。",
+          fail: "半页即末页，本轮结束。",
+          loc: L(F.scanSvc, "PaymentScanService", "scan", 68, "findDue 调用", "翻页骨架：循环 findDue → 执行分发，半页提前结束。"),
+          locs: [L(F.taskMapper, "SettlementTaskMapper.xml", "selectDue", 12, "共用资格片段", "到期筛选 SQL：WHERE 里 include 资格片段，游标只影响翻页范围。")] },
+        { f: 2, t: 3, k: "db", imp: 3, h: "抢占任务所有权", ep: "claim UPDATE · 状态→执行中",
+          plain: "一条 UPDATE 抢坑：状态改执行中、轮次+1，失败重试计数同条 SQL 按旧状态完成。抢不到就跳过，绝不重复执行。",
+          trigger: "逐条任务，独立小事务。",
+          gate: "影响行数必须=1；WHERE 与扫描资格同源。",
+          state: "status→1、round+1、仅失败态重抢时预算+1。",
+          fail: "抢占失败只计 skipped。",
+          loc: L(F.scanSvc, "PaymentScanService", "tryClaim", 96, "claim+回读同事务", "抢坑动作：claim 命中一行才算抢到，成功后回读新行。"),
+          locs: [L(F.taskMapper, "SettlementTaskMapper.xml", "claim", 30, "CASE 先按旧状态计数", "抢占 SQL：改状态、轮次+1、预算计数一条完成。")] },
+        { f: 2, t: 2, k: "gate", imp: 1, h: "按类型分派执行器", ep: "processOne · 路由表",
+          plain: "扫描服务只负责发现/抢占/分派/归类，具体执行由按任务类型注册的执行器闭环。",
+          trigger: "抢占成功后。",
+          gate: "无执行器的类型直接业务拒绝。",
+          state: "本步只路由。",
+          fail: "异常统一出口分类（见异常归类）。",
+          loc: L(F.scanSvc, "PaymentScanService", "processOne", 60, "", "总调度口：查执行器表执行，并把等待/拒绝/技术异常统一归类。") },
+        { f: 2, t: 4, k: "call", imp: 3, h: "结算与记账", ep: "settle → ledger.post",
+          plain: "真正的业务在结算执行器里：锁齐任务与资金、计算分摊、写四张表、记账入账。",
+          trigger: "分派进入。",
+          gate: "锁内复验全部通过才写账。",
+          state: "单据生效 + 累计金额累加。",
+          fail: "任一复验失败整体回滚。",
+          loc: L(F.settleSvc, "SettlementService", "settle", 120, "", "结算主体：四重锁齐后计算分摊并调用记账。"),
+          locs: [L(F.ledgerSvc, "LedgerService", "post", 55, "saveAuto 调用", "记账入口：把分摊结果落成四表并累加余额。")],
+          drill: "ledger" },
+        { f: 2, t: 3, k: "db", imp: 3, h: "完成或部分等待", ep: "isCleared → complete / schedule",
+          plain: "核平了就完成任务（写终态哨兵），只核一部分就改等待、约十分钟后再来；回写都是同轮 CAS。",
+          trigger: "记账返回后。",
+          gate: "CAS 影响行数≠1 抛异常回滚。",
+          state: "完成→status=2 + 终态时间；部分→status=4 +10 分钟。",
+          fail: "连账带任务一起回滚。",
+          loc: L(F.settleSvc, "SettlementService", "settle", 148, "收尾判断", "收尾：isCleared 决定完成还是等待，CAS 兜底。"),
+          locs: [L(F.taskMapper, "SettlementTaskMapper.xml", "complete", 48, "写终态哨兵", "完成 SQL：同轮且执行中才改完成，并写终态时间。")] },
+        { f: 2, t: 3, k: "fail", imp: 1, h: "异常归类与重试预算", ep: "Waiting / ClientException / 其它",
+          plain: "料没备好→等待 10 分钟；业务拒绝→失败 30 分钟，预算 3 次用完进终态；技术故障→待处理 30 分钟，不耗预算。",
+          trigger: "processOne 的 catch 分支。",
+          gate: "失败预算只在 claim 从失败态重抢时计数。",
+          state: "各自转状态并写退避时间。",
+          fail: "预算耗尽只能人工处理。",
+          loc: L(F.scanSvc, "PaymentScanService", "processOne", 62, "catch 分支", "异常分拣：三类异常各自转状态并写退避时间。"),
+          locs: [L(F.scanSvc, "PaymentScanService", "schedule", 88, "独立事务", "退避落库：独立事务回写，预算耗尽写终态哨兵。")] }
+      ]
+    },
+    birth: {
+      title: "任务出生：入口清单",
+      lanes: [LANES.cb, LANES.api, LANES.db],
+      events: [
+        { f: 0, t: 1, k: "cb", imp: 1, h: "入口① 支付回调建任务", ep: "onPaid → upsertTask",
+          plain: "支付成功回调的事务里顺手把结算任务占坑建好，已有任务不动，只唤醒已完成的。",
+          trigger: "支付回调成功分支。",
+          gate: "占坑 INSERT…ODKU 只碰主键，不覆盖已有任务。",
+          state: "新建待处理任务；已完成任务可被唤醒。",
+          fail: "随回调事务回滚。",
+          loc: L(F.scanSvc, "PaymentScanService", "upsertTask", 200, "", "占坑建任务：有则不动，已完成可被新份额唤醒。"),
+          locs: [L(F.taskMapper, "SettlementTaskMapper.xml", "upsertAutoTask", 66, "", "upsert SQL：同键唯一行，已完成唤醒并重置预算。")] },
+        { f: 1, t: 2, k: "call", imp: 1, h: "入口② 补建扫描", ep: "POST /settlement/backfill",
+          plain: "兜底入口：把『该有任务但没有』的单据找出来补建，只补调度不写账。",
+          trigger: "外部调度调用补建接口。",
+          gate: "补建源 SQL 圈定未结清且无任务的单据。",
+          state: "upsert 任务。",
+          fail: "单单失败只跳过。",
+          loc: L(F.scanSvc, "PaymentScanService", "backfill", 220, "", "补建入口：逐单独立事务，失败只跳过不阻断。") },
+        { f: 1, t: 2, k: "call", imp: 1, h: "入口③ 人工重试", ep: "POST /settlement/retry",
+          plain: "人工把失败任务复位后重新排队，受控恢复，不绕过失败预算约束。",
+          trigger: "运维触发。",
+          gate: "仅终态失败可复位。",
+          state: "status→0 + 到期时间 NOW()。",
+          fail: "非失败态拒绝。",
+          loc: L(F.scanCtrl, "PaymentScanController", "retry", 70, "", "人工重试：校验当前状态后复位排队。") }
+      ]
+    },
+    ledger: {
+      title: "下钻：记账 post 内部",
+      lanes: [LANES.svc, LANES.ledger, LANES.db],
+      events: [
+        { f: 0, t: 1, k: "gate", imp: 3, h: "锁内复验", ep: "任务→资金→单据",
+          plain: "记账前按固定顺序把行锁齐并逐项复验快照，任何一项变化整体回滚重新备菜。",
+          trigger: "记账入口开头。",
+          gate: "四类复验任一失败即乐观锁异常。",
+          state: "FOR UPDATE 行锁持至提交。",
+          fail: "回滚后按技术异常退回待处理。",
+          loc: L(F.ledgerSvc, "LedgerService", "post", 55, "", "记账主体：锁齐复验后写四表并累加余额。") },
+        { f: 1, t: 2, k: "db", imp: 3, h: "分摊计算", ep: "allocate",
+          plain: "把每笔资金按顺序摊到单据明细上，生成分摊行——金额的真实构成。",
+          trigger: "校验通过后。",
+          gate: "分摊守恒。",
+          state: "产出分摊结果。",
+          fail: "不变量校验拦截。",
+          loc: L(F.ledgerSvc, "LedgerService", "allocate", 102, "", "分摊算法：按序摊到单据明细。") },
+        { f: 1, t: 2, k: "db", imp: 3, h: "四表保存", ep: "repository.save",
+          plain: "头表 + 三张子表一次写入，操作键唯一键拦同轮重复。",
+          trigger: "分摊完成。",
+          gate: "唯一键冲突回滚。",
+          state: "四表插入，头表草稿。",
+          fail: "回滚。",
+          loc: L(F.ledgerRepo, "LedgerRepository", "save", 40, "", "四表保存：operationKey 在此拦同轮重复。") },
+        { f: 1, t: 2, k: "db", imp: 3, h: "余额累加 + 生效", ep: "settleAmount → approve",
+          plain: "三处累计金额带余额守卫累加，最后 CAS 把单据推到已生效。",
+          trigger: "四表保存后。",
+          gate: "任一守卫行数=0 即回滚。",
+          state: "累加字段 + status 草稿→生效。",
+          fail: "整事务回滚。",
+          loc: L(F.ledgerSvc, "LedgerService", "settleAmount", 120, "生效 CAS :130", "真金落账：三处累加带守卫，再 CAS 生效。") }
+      ]
+    }
+  };
+
+  var STATES = [
+    ["新建 → 待处理", "支付回调占坑 / 补建扫描", "SettlementTaskMapper.xml upsertAutoTask:66"],
+    ["待处理/等待 → 执行中", "到期被抢占（round+1）", "SettlementTaskMapper.xml claim:30"],
+    ["执行中 → 已完成", "核平/零候选（同轮 CAS）；写终态时间", "complete:48"],
+    ["执行中 → 等待(+10min)", "部分处理 / 料未就绪", "schedule + processOne 归类"],
+    ["执行中 → 待处理(+30min)", "技术异常，不耗失败预算", "processOne 异常分支"]
+  ];
+
+  /* ============ 渲染与交互（通用，不要改） ============ */
+  var stack = [{ view: "main", sel: 0 }];
+  var hist = [cloneStack()], hi = 0;
+  function cloneStack() { return stack.map(function (s) { return { view: s.view, sel: s.sel }; }); }
+  function commit() { hist = hist.slice(0, hi + 1); hist.push(cloneStack()); hi = hist.length - 1; }
+  function syncCurrent() { hist[hi] = cloneStack(); }
+  function goBack() { if (hi > 0) { hi--; stack = hist[hi].map(function (s) { return { view: s.view, sel: s.sel }; }); renderAll(); } }
+  function goForward() { if (hi < hist.length - 1) { hi++; stack = hist[hi].map(function (s) { return { view: s.view, sel: s.sel }; }); renderAll(); } }
+  R.addEventListener("keydown", function (e) {
+    if (e.altKey && e.key === "ArrowLeft") { e.preventDefault(); goBack(); }
+    else if (e.altKey && e.key === "ArrowRight") { e.preventDefault(); goForward(); }
+  });
+  var nav = R.querySelector("#aw-nav"), head = R.querySelector("#aw-head"),
+      body = R.querySelector("#aw-body"), detail = R.querySelector("#aw-detail"),
+      histBox = R.querySelector("#aw-hist"), announcer = R.querySelector("#aw-announcer");
+
+  var theme = "auto";
+  R.setAttribute("data-theme", theme);
+  function applyThemeButtons() {
+    Array.prototype.forEach.call(R.querySelectorAll("[data-theme-val]"), function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-theme-val") === theme));
+    });
+  }
+  Array.prototype.forEach.call(R.querySelectorAll("[data-theme-val]"), function (b) {
+    b.addEventListener("click", function () {
+      theme = b.getAttribute("data-theme-val");
+      R.setAttribute("data-theme", theme);
+      applyThemeButtons();
+    });
+  });
+  applyThemeButtons();
+
+  var split = R.querySelector("#aw-split"), cols = R.querySelector(".aw-cols");
+  function curWidth() { return parseFloat(getComputedStyle(R).getPropertyValue("--aw-dw")) || 430; }
+  function setWidth(px) {
+    var max = Math.max(320, cols.clientWidth - 380);
+    var w = Math.min(Math.max(px, 300), max);
+    R.style.setProperty("--aw-dw", w + "px");
+    split.setAttribute("aria-valuenow", String(Math.round(w)));
+  }
+  var dragging = false;
+  split.addEventListener("pointerdown", function (e) {
+    e.preventDefault(); dragging = true; split.setAttribute("data-active", "");
+    try { split.setPointerCapture(e.pointerId); } catch (ignored) {}
+  });
+  split.addEventListener("pointermove", function (e) { if (dragging) setWidth(cols.getBoundingClientRect().right - e.clientX - 6); });
+  function endDrag() { dragging = false; split.removeAttribute("data-active"); }
+  split.addEventListener("pointerup", endDrag);
+  split.addEventListener("pointercancel", endDrag);
+  split.addEventListener("dblclick", function () { setWidth(430); });
+  split.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { e.preventDefault(); setWidth(curWidth() + 24); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); setWidth(curWidth() - 24); }
+  });
+
+  function cur() { return stack[stack.length - 1]; }
+  function curView() { return VIEWS[cur().view]; }
+  function curEvent() { return curView().events[cur().sel]; }
+  function absPath(file) { return ROOT + "/" + file; }
+  function ideaUrl(loc) { return "idea://open?file=" + encodeURIComponent(absPath(loc.file)) + "&line=" + loc.line; }
+  function jumpHref(loc, extra) {
+    var cls = "aw-btn" + (extra && extra.primary ? " aw-btn-pri" : "");
+    var label = extra && extra.primary ? "在 IDEA 中打开（主位置）" : "IDEA 打开";
+    if (JUMP_BASE) {
+      return '<a class="' + cls + '" href="' + JUMP_BASE + "/jump?file=" + encodeURIComponent(absPath(loc.file)) + "&line=" + loc.line +
+        '" data-aw-jump="' + esc(absPath(loc.file) + "\t" + loc.line) +
+        '" aria-label="' + esc(label + "：" + loc.method + " 行" + loc.line) + '">' + esc(label) + "</a>";
+    }
+    return '<a class="' + cls + '" href="' + ideaUrl(loc) + '" aria-label="' + esc(label + "：" + loc.method + " 行" + loc.line) + '">' + esc(label) + "</a>";
+  }
+  function mappingOf(ev) {
+    var all = [ev.loc].concat(ev.locs || []);
+    return {
+      view: cur().view, step: cur().sel, title: ev.h,
+      locations: all.map(function (loc, i) {
+        return { order: i + 1, file: loc.file, absPath: absPath(loc.file), class: loc.cls, method: loc.method,
+                 line: loc.line, signature: loc.sig, note: loc.note, ideaUrl: ideaUrl(loc) };
+      })
+    };
+  }
+  function buildFullMap() {
+    var out = { projectRoot: ROOT, template: "review-atlas", views: {} };
+    Object.keys(VIEWS).forEach(function (vk) {
+      out.views[vk] = { title: VIEWS[vk].title, steps: VIEWS[vk].events.map(function (ev, i) {
+        return { step: i, title: ev.h, drill: ev.drill || null,
+          locations: [ev.loc].concat(ev.locs || []).map(function (loc, j) {
+            return { order: j + 1, file: loc.file, absPath: absPath(loc.file), class: loc.cls, method: loc.method,
+                     line: loc.line, signature: loc.sig, note: loc.note, ideaUrl: ideaUrl(loc) };
+          }) };
+      }) };
+    });
+    return out;
+  }
+  window.__AW_CODE_MAP__ = buildFullMap();
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  /* Inline emphasis inside section bodies: **text**, 「quoted」 and 『quoted』 render in the section hue. */
+  function md(text) {
+    return esc(text)
+      .replace(/\*\*(.+?)\*\*/g, '<b class="aw-b">$1</b>')
+      .replace(/「([^」]{1,80})」/g, '<em class="aw-q">「$1」</em>')
+      .replace(/『([^』]{1,80})』/g, '<em class="aw-q">『$1』</em>');
+  }
+  var lastMessage = "";
+  function fresh(msg) { if (msg === lastMessage) msg += " "; lastMessage = msg; return msg; }
+  function announce(msg) { announcer.textContent = fresh(msg); }
+
+  function renderNav() {
+    histBox.innerHTML = '<button type="button" class="aw-crumb" data-nav="back" aria-disabled="' + (hi === 0) +
+      '" aria-label="后退（Alt+左方向键）">← 后退</button>' +
+      '<button type="button" class="aw-crumb" data-nav="fwd" aria-disabled="' + (hi === hist.length - 1) +
+      '" aria-label="前进（Alt+右方向键）">前进 →</button>';
+    var html = "";
+    stack.forEach(function (s, i) {
+      if (i > 0) html += '<span class="aw-navsep">▸</span>';
+      html += '<button type="button" class="aw-crumb" data-depth="' + i + '" aria-current="' + (i === stack.length - 1) + '">' +
+        esc(VIEWS[s.view].title) + "</button>";
+    });
+    if (stack.length > 1) html += '<button type="button" class="aw-crumb" data-nav="up">返回上级</button>';
+    if (cur().view === "main") html += '<span class="aw-navsep">｜</span><button type="button" class="aw-crumb" data-goto="birth">任务出生入口</button>';
+    nav.innerHTML = html;
+    Array.prototype.forEach.call(nav.querySelectorAll("[data-depth]"), function (b) {
+      b.addEventListener("click", function () { stack = stack.slice(0, Number(b.getAttribute("data-depth")) + 1); commit(); renderAll(); });
+    });
+    Array.prototype.forEach.call(nav.querySelectorAll("[data-goto]"), function (b) {
+      b.addEventListener("click", function () { stack = [{ view: b.getAttribute("data-goto"), sel: 0 }]; commit(); renderAll(); });
+    });
+    Array.prototype.forEach.call(R.querySelectorAll("[data-nav]"), function (b) {
+      b.addEventListener("click", function () {
+        if (b.getAttribute("aria-disabled") === "true") return;
+        var kind = b.getAttribute("data-nav");
+        if (kind === "back") goBack();
+        else if (kind === "fwd") goForward();
+        else if (kind === "up" && stack.length > 1) { stack.pop(); commit(); renderAll(); }
+      });
+    });
+  }
+
+  function renderSeq() {
+    var v = curView(), n = v.lanes.length;
+    head.innerHTML = v.lanes.map(function (l, i) {
+      return '<div class="aw-lane" style="--i:' + i + '"><i style="background:' + l.c + '"></i>' + esc(l.n) + "<small>" + esc(l.g) + "</small></div>";
+    }).join("");
+    head.style.gridTemplateColumns = "repeat(" + n + ",1fr)";
+    body.innerHTML = v.events.map(function (e, i) {
+      var a = Math.min(e.f, e.t), b = Math.max(e.f, e.t), self = e.f === e.t;
+      var drillTag = e.drill ? '<span class="aw-drill">下钻 ▾</span>' : "";
+      return '<li class="aw-row" style="grid-template-columns:repeat(' + n + ',1fr)">' +
+        '<button type="button" class="aw-hit k-' + e.k + (self ? " aw-self" : "") + '" data-i="' + i +
+        '" data-imp="' + (e.imp || 1) + '" style="grid-column:' + (a + 1) + " / " + (b + 2) + ';--i:' + i +
+        '" aria-current="' + (i === cur().sel ? "step" : "false") + '">' +
+        '<b><span class="aw-num">' + (i + 1) + '.</span> ' + (e.t < e.f ? "◀ " : "") + esc(v.lanes[e.f].n) + (self ? " 内部" : " → " + esc(v.lanes[e.t].n)) +
+        "　" + esc(e.h) + drillTag + "</b><span>" + esc(e.ep) + "</span></button></li>";
+    }).join("");
+    Array.prototype.forEach.call(body.querySelectorAll("button[data-i]"), function (btn) {
+      btn.addEventListener("click", function () {
+        var i = Number(btn.getAttribute("data-i"));
+        var ev = v.events[i];
+        if (cur().sel === i && ev.drill) { stack.push({ view: ev.drill, sel: 0 }); commit(); }
+        else { cur().sel = i; syncCurrent(); }
+        renderAll();
+        if (window.matchMedia && window.matchMedia("(max-width: 1079px)").matches) {
+          var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          detail.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+        }
+      });
+    });
+  }
+
+  body.addEventListener("keydown", function (e) {
+    var keys = { ArrowDown: 1, ArrowUp: -1 };
+    var btns = Array.prototype.slice.call(body.querySelectorAll("button[data-i]"));
+    var idx = btns.indexOf(document.activeElement);
+    if (idx < 0) return;
+    var next = null;
+    if (e.key in keys) next = btns[Math.min(btns.length - 1, Math.max(0, idx + keys[e.key]))];
+    else if (e.key === "Home") next = btns[0];
+    else if (e.key === "End") next = btns[btns.length - 1];
+    if (next) { e.preventDefault(); next.focus(); }
+  });
+
+  function locRows(loc) {
+    return '<div class="aw-locrow"><dt>文件</dt><dd class="mono">' + esc(loc.file) + "</dd></div>" +
+      '<div class="aw-locrow"><dt>类/文件</dt><dd>' + esc(loc.cls) + "</dd></div>";
+  }
+  function copyControl(targetId, label) {
+    return '<span class="aw-copy"><button type="button" class="aw-btn" command="--copy-json" commandfor="' + targetId +
+      '" aria-label="' + esc(label) + '">复制映射</button><span class="aw-tip" role="status"></span></span>';
+  }
+
+  function renderDetail() {
+    var e = curEvent(), v = curView();
+    var map = mappingOf(e);
+    var all = [e.loc].concat(e.locs || []);
+    var html = '<button type="button" class="aw-btn aw-backlist" data-backlist="1">↑ 回时序列表</button>' +
+      '<h3 class="aw-dtitle">' + (cur().sel + 1) + ". " + esc(e.h) + "</h3>" +
+      '<p class="aw-ddir">' + esc(v.lanes[e.f].n) + (e.f === e.t ? "（内部动作）" : " → " + esc(v.lanes[e.t].n)) + " · " + esc(e.ep) + "</p>";
+    html += '<div class="aw-chain" aria-label="本环节调用顺序">' + all.map(function (loc, i) {
+      return (i ? "<i>→</i>" : "") + '<button type="button" data-chain="' + i + '" style="--i:' + i + '" title="定位到第' + (i + 1) + '个方法">' +
+        (i + 1) + " " + esc(loc.method) + "</button>";
+    }).join("") + "</div>";
+    html += '<dl class="aw-sec" data-kind="plain"><dt>大白话：这一步在做什么</dt><dd>' + md(e.plain) + "</dd></dl>" +
+      '<dl class="aw-sec" data-kind="trigger"><dt>触发条件</dt><dd>' + md(e.trigger) + "</dd></dl>" +
+      '<dl class="aw-sec" data-kind="gate"><dt>关键判断 / 分支</dt><dd>' + md(e.gate) + "</dd></dl>" +
+      '<dl class="aw-sec" data-kind="state"><dt>状态变化</dt><dd>' + md(e.state) + "</dd></dl>" +
+      '<dl class="aw-sec" data-kind="fail"><dt>失败行为</dt><dd>' + md(e.fail) + "</dd></dl>";
+    all.forEach(function (loc, i) {
+      var id = i === 0 ? "aw-loc-main" : "aw-loc-" + (i - 1);
+      var payload = i === 0 ? map : { view: map.view, step: map.step, title: map.title, locations: [map.locations[i]] };
+      html += '<article class="aw-mcard" id="' + id + '" style="--i:' + i + '" data-json="' + esc(JSON.stringify(payload, null, 2)) + '">' +
+        '<div class="aw-mhead"><span class="aw-badge">' + (i + 1) + '</span>' +
+        '<span class="aw-mname">' + esc(loc.cls) + "." + esc(loc.method) + "</span>" +
+        '<span class="aw-line">行 ' + loc.line + "</span></div>" +
+        '<p class="aw-mnote">' + esc(loc.note || "（调用顺序第" + (i + 1) + "位）") + "</p>" +
+        (loc.sig ? '<p class="aw-msig">' + esc(loc.sig) + "</p>" : "") +
+        '<dl style="margin:0">' + locRows(loc) + "</dl>" +
+        '<div class="aw-actions">' + jumpHref(loc, { primary: i === 0 }) +
+        copyControl(id, "复制映射 JSON：" + loc.method + " 行" + loc.line) + "</div></article>";
+    });
+    if (e.drill) {
+      html += '<div class="aw-actions"><button type="button" class="aw-btn aw-btn-pri" data-drill="1">下钻进入：' +
+        esc(VIEWS[e.drill].title) + " ▾</button></div>";
+    }
+    html += '<details class="aw-map"><summary>插件映射数据（data-aw-map / window.__AW_CODE_MAP__）</summary>' +
+      "<pre>" + esc(JSON.stringify(map, null, 2)) + "</pre></details>" +
+      '<p class="aw-note">调用顺序=本环节内方法被调用的先后。独立打开时使用 idea:// 协议；经插件本地服务打开时直接走本地跳转服务，' +
+      "JCEF 内嵌与外部浏览器均可跳转。插件可读取节点 data-aw-map 或全局 window.__AW_CODE_MAP__。</p>";
+    detail.innerHTML = html;
+    detail.setAttribute("data-aw-map", JSON.stringify(map));
+    announce("已选中 " + (cur().sel + 1) + ". " + e.h);
+
+    var backBtn = detail.querySelector("[data-backlist]");
+    if (backBtn) backBtn.addEventListener("click", function () {
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      body.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+    });
+    Array.prototype.forEach.call(detail.querySelectorAll("[data-chain]"), function (b) {
+      b.addEventListener("click", function () {
+        var i = Number(b.getAttribute("data-chain"));
+        var card = detail.querySelector(i === 0 ? "#aw-loc-main" : "#aw-loc-" + (i - 1));
+        if (!card) return;
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        card.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+        card.setAttribute("data-flash", "");
+        setTimeout(function () { card.removeAttribute("data-flash"); }, 900);
+      });
+    });
+    var drillBtn = detail.querySelector("[data-drill]");
+    if (drillBtn) drillBtn.addEventListener("click", function () {
+      stack.push({ view: e.drill, sel: 0 }); commit(); renderAll();
+    });
+  }
+
+  var copyTimers = new WeakMap();
+  function report(button, ok) {
+    var tip = button.nextElementSibling;
+    clearTimeout(copyTimers.get(button));
+    button.removeAttribute("data-copied"); button.removeAttribute("data-failed");
+    tip.removeAttribute("data-show"); tip.removeAttribute("data-failed");
+    var message = fresh(ok ? "已复制" : "复制失败");
+    void button.offsetWidth;
+    button.setAttribute(ok ? "data-copied" : "data-failed", "");
+    if (!ok) tip.setAttribute("data-failed", "");
+    requestAnimationFrame(function () { tip.textContent = message; tip.setAttribute("data-show", ""); });
+    copyTimers.set(button, setTimeout(function () {
+      button.removeAttribute("data-copied"); button.removeAttribute("data-failed");
+      tip.removeAttribute("data-show"); tip.removeAttribute("data-failed"); tip.textContent = "";
+    }, 2000));
+  }
+  function legacyCopy(text) {
+    var field = Object.assign(document.createElement("textarea"), { value: text });
+    field.setAttribute("readonly", "");
+    field.style.cssText = "position:absolute;inset-block-start:0;left:-9999px;opacity:0";
+    R.appendChild(field); field.select();
+    try { return document.execCommand("copy"); } finally { field.remove(); }
+  }
+  function copy(button, target) {
+    var text = (target.dataset.json || target.innerText || "").trim();
+    if (!text) return;
+    var done = function (ok) { report(button, ok); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(legacyCopy(text)); });
+    } else done(legacyCopy(text));
+  }
+  if ("CommandEvent" in window) {
+    R.addEventListener("command", function (event) {
+      if (String(event.command).indexOf("--copy") === 0) copy(event.source, event.target);
+    }, true);
+  } else {
+    R.addEventListener("click", function (event) {
+      var button = event.target.closest ? event.target.closest('button[command^="--copy"]') : null;
+      if (!button) return;
+      var target = document.getElementById(button.getAttribute("commandfor"));
+      if (target) copy(button, target);
+    });
+  }
+
+  function renderStateTable() {
+    R.querySelector("#aw-statetable").innerHTML = STATES.map(function (row) {
+      return "<tr><td>" + esc(row[0]) + "</td><td>" + esc(row[1]) + '</td><td class="mono">' + esc(row[2]) + "</td></tr>";
+    }).join("");
+  }
+  function renderAll() {
+    renderNav();
+    renderSeq();
+    try { renderDetail(); } catch (err) {
+      detail.innerHTML = '<pre style="white-space:pre-wrap;font:12px/1.5 ui-monospace,Consolas,monospace;color:#fff;background:#7f1d1d;padding:10px;border-radius:6px">'
+        + esc("详情渲染失败: " + (err && err.stack ? err.stack : err)) + "</pre>";
+    }
+  }
+  renderStateTable();
+  renderAll();
+})();
+</script>
+</div>
